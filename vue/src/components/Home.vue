@@ -18,17 +18,39 @@
                     .col-sm-12.bg-secundario.mb-3(style='width:10%; height:1px;')
                     form.col-sm-12
                       .form-group
-                        label.text-white(for='exampleInputEmail1') Email
+                        label.text-white(for='exampleInputEmail1') Correo
                         input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
                         small#emailHelp.form-text.text-muted Nunca compartiremos su correo electrónico con nadie.
                       .form-group
-                        label.text-white(for='exampleInputPassword1') Password
+                        label.text-white(for='exampleInputPassword1') Contraseña
                         input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                      .form-group
+                        a(href='#' data-toggle='modal' data-target='#exampleModal' data-whatever='@mdo') Olvide mi contraseña
                       .form-group.form-check
                         input#exampleCheck1.form-check-input(type='checkbox')
                         label.form-check-label.color-oscuro(for='exampleCheck1') Recordar
                       button.btn.btn-primary.text-white.mr-3(type='submit') Ingresar
-                      button.bg-terciario.btn.text-white(type='submit') Regístrate
+                      router-link.bg-terciario.btn.text-white(to='/login') Regístrate
+                    // Modal
+                    #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                          .modal-header
+                            h5#exampleModalLabel.modal-title Recuperar mi contraseña
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                            .alert.alert-success(role='alert')
+                              | En su correo recibirá su contraseña
+                            .alert.alert-danger(role='alert')
+                              | Su correo no esta registrado
+                            form
+                              .form-group
+                                label.col-form-label(for='recipient-name') Correo:
+                                input#recipient-name.form-control(type='text')
+                          .modal-footer
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Cerrar
+                            button.btn.btn-primary(type='button') Enviar
     section.bg-blanco
       .container
         .row.d-flex.justify-content-center
@@ -164,7 +186,8 @@
 import Header from './frontoffice/Header'
 import Footer from './frontoffice/Footer'
 export default {
-  components:{Header,Footer}
+  components:{Header,Footer},
+ 
 }
 </script>
 

@@ -3,7 +3,7 @@
     .container
       nav.navbar-expand-lg.navbar-dark.bg-dark.d-sm-none.d-md-block(style='background:transparent!important;')
         .row.align-items-center.nav-superior
-          a.col-md-2(href='#')
+          router-link.col-md-2(to='/')
             img.img-fluid.logo-nav(src='img/logo2.png', alt='')
           button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
@@ -29,8 +29,6 @@
                   router-link(to="/").nav-link
                     | Home 
                     span.sr-only (current)
-                li.nav-item.active
-                  router-link.nav-link(to="/test") Nosotros
                 li.nav-item.active
                   a.nav-link(href='servicios.php') Nuestros Libros
                 li.nav-item.active

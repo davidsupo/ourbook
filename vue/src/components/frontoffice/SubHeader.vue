@@ -9,19 +9,21 @@
           #navbarNavDropdown.collapse.navbar-collapse
             ul.navbar-nav
               li.nav-item.active
-                a.nav-link(href='#')
+                router-link.nav-link(to='/ingresando')
                   | Inicio 
                   span.sr-only (current)
               li.nav-item
-                a.nav-link(href='#') Libros Alquilados
+                router-link.nav-link(to='/alquilados') Libros Alquilados
               li.nav-item
-                a.nav-link(href='#') Libros Compartidos
+                router-link.nav-link(to='/compartir') Compartir
+              li.nav-item
+                router-link.nav-link(to='/compartidos') Libros Compartidos
               li.nav-item.dropdown
                 a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                   | Mi cuenta
                 .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                  a.dropdown-item(href='#') Datos de Perfil
-                  a.dropdown-item(href='#') Cerrar Sesión
+                  router-link.dropdown-item(to='/perfil') Datos de Perfil
+                  router-link.dropdown-item(to='/') Cerrar Sesión
 
 </template>
 

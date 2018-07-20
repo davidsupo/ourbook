@@ -1,205 +1,193 @@
 /*ESTILOS GENERALES inicio*/
 
 html {
-    font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 .row {
-    margin: 0px !important;
+  margin: 0px !important;
 }
 
-a{
-    color: none!important;
-    text-decoration: none!important;
+a {
+  color: none !important;
+  text-decoration: none !important;
 }
-
 
 .parallax-inicio {
-    /* The image used */
-    background-image: url("https://images.unsplash.com/photo-1521316973612-36489899f29b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36fdaa1cb84d9cce27959b8f00bbedd&auto=format&fit=crop&w=1050&q=80");
-    /* Set a specific height */
-    height: 800px;
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1521316973612-36489899f29b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e36fdaa1cb84d9cce27959b8f00bbedd&auto=format&fit=crop&w=1050&q=80");
+  /* Set a specific height */
+  height: 800px;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .parallax-ingresando {
-    /* The image used */
-    background-image: url("https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9731a56510305fd6f05aeaa9d68e41e3&auto=format&fit=crop&w=1050&q=80");
-    /* Set a specific height */
-    height: 400px;
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9731a56510305fd6f05aeaa9d68e41e3&auto=format&fit=crop&w=1050&q=80");
+  /* Set a specific height */
+  height: 400px;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .parallax-prestar {
-    /* The image used */
-    background-image: url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e598fb9aae16b97aa5459be719c0f945&auto=format&fit=crop&w=1050&q=80");
-    /* Set a specific height */
-    height: 400px;
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e598fb9aae16b97aa5459be719c0f945&auto=format&fit=crop&w=1050&q=80");
+  /* Set a specific height */
+  height: 400px;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /*COLORES*/
-.bg-blanco{
-    background: #fff;
+
+.bg-blanco {
+  background: #fff;
 }
 
 .bg-negro {
-    background: #000;
+  background: #000;
 }
 
-.bg-oscuro{
-    background: #F9F9F9;
+.bg-oscuro {
+  background: #F9F9F9;
 }
 
-.bg-azul-oscuro{
-    background: #283033!important;
+.bg-azul-oscuro {
+  background: #283033 !important;
 }
 
-.bg-primario{
-    background: #1f2b49;
+.bg-primario {
+  background: #1f2b49;
 }
 
-.bg-secundario{
-    background: #5692bf;
+.bg-secundario {
+  background: #5692bf;
 }
 
 .bg-terciario {
-    background: #c75c59;
+  background: #c75c59;
 }
 
-.bg-transparente-oscuro{
-    background: #28282a99;
+.bg-transparente-oscuro {
+  background: #28282a99;
 }
 
 /*TEXTO*/
-.negrita{
-    font-weight: 600;
+
+.negrita {
+  font-weight: 600;
 }
 
 .delgado {
-    font-weight: 200;
+  font-weight: 200;
 }
 
-.icono-pequeño{
-    width: 70px;
+.icono-pequeño {
+  width: 70px;
 }
 
 .color-primario {
-    color: #1f2b49;
+  color: #1f2b49;
 }
 
 .color-secundario {
-    color: #5692bf;
+  color: #5692bf;
 }
 
 .color-terciario {
-    color: #c75c59;
+  color: #c75c59;
 }
 
-.color-enlace-oscuros{
-    color: #6c757d !important;
+.color-enlace-oscuros {
+  color: #6c757d !important;
 }
 
-.color-oscuro{
-    color: #6c757d !important;
+.color-oscuro {
+  color: #6c757d !important;
 }
 
-.color-blanco{
-    color: #fff!important;
+.color-blanco {
+  color: #fff !important;
 }
-
 
 /*HEADER*/
-header{
-    position: absolute;
-    width: 100%;
-    z-index: 100;
+
+header {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
 }
 
-header .navbar{
-    background: transparent;
-    border-bottom-color: #eeeeee54 !important;
-    border-radius: none!important;
+header .navbar {
+  background: transparent;
+  border-bottom-color: #eeeeee54 !important;
+  border-radius: none !important;
 }
 
 .nav-superior {
-
-    border-bottom: 1px solid #eeeeee54 !important;
-    border-radius: none !important;
+  border-bottom: 1px solid #eeeeee54 !important;
+  border-radius: none !important;
 }
 
-.logo-nav{
-    padding: 10px;
+.logo-nav {
+  padding: 10px;
 }
 
-.menu-superior li a{
-    font-weight: 700;
+.menu-superior li a {
+  font-weight: 700;
 }
 
 /*FOOTER*/
 
 .footer {
-    padding: 40px 0px;
+  padding: 40px 0px;
 }
 
 .iconos-footer {
-    padding: 0px;
+  padding: 0px;
 }
 
 /*PORTADAS*/
-.portada{
-    padding: 250px 0px;
-    background-size: cover;
-    background-position: 50% -20p   
+
+.portada {
+  padding: 250px 0px;
+  background-size: cover;
+  background-position: 50% -20p
 }
 
-.titulo-portada{
-    color: white;
-    font-weight: 600;
-    font-size: 50px!important;
+.titulo-portada {
+  color: white;
+  font-weight: 600;
+  font-size: 50px !important;
 }
 
-.portada-nosotros{
-    background-image: url(../img/portada-nosotros.png);
+.portada-nosotros {
+  background-image: url(../img/portada-nosotros.png);
 }
 
 .portada-servicios {
-    background-image: url(../img/portada-servicios.png);
+  background-image: url(../img/portada-servicios.png);
 }
 
 .portada-clientes {
-    background-image: url(../img/portada-clientes.png);
+  background-image: url(../img/portada-clientes.png);
 }
 
 /*CONTENIDO*/
-.contenido{
-    margin-top: -200px;
-}
 
-.introduccion{
-    padding: 45px 0px;
-    /*background: #fff;*/
-    font-size: 18px;
-
-}
-
-.mision {
-    padding: 55px 95px;
-    background: #F9F9F9;
-    font-size: 18px;
-    padding-bottom: 0px;
+.boton-estados:hover {
+  background: #1f2b49;
 }
 
 @font-face {

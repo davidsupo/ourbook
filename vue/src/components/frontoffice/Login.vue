@@ -13,6 +13,8 @@
     section.bg-blanco.py-2
       .container.bg-oscuro
         .row.py-5
+          .col-sm-12.border-bottom
+            h2 Ingresa tus datos correctamente
           form.row
             .col-sm-12.col-md-6.py-3
               label(for='ruc') Nombre
@@ -38,8 +40,11 @@
             .col-sm-12.col-md-6.py-3
               label(for='correo') Contraseña
               input#correo.form-control(type='email', aria-describedby='emailHelp', placeholder='')
+            .col-sm-12.col-md-6.py-3
+              label(for='correo') Confirmar Contraseña
+              input#correo.form-control(type='email', aria-describedby='emailHelp', placeholder='')
             .col-sm-12.col-md-12.py-3
-              button.btn.btn-success(type='submit') Enviar
+              button.btn.btn-success(type='submit') Registrarse
     Footer  
 </template>
 
