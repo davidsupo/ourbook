@@ -13,19 +13,21 @@
             .col-sm-4
               .justify-content-center
                 .bg-transparente-oscuro
-                  .row.p-4
+                  .row.p-4(v-if="!user")
                     h3.col-sm-12.text-white Iniciar Sesión
                     .col-sm-12.bg-secundario.mb-3(style='width:10%; height:1px;')
-                    form.col-sm-12
+                    form.col-sm-12(@submit.prevent="Login()")
+                      .alert.alert-danger(role='alert' v-if="alert")
+                        | {{message}}
                       .form-group
                         label.text-white(for='exampleInputEmail1') Correo
-                        input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
+                        input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email' v-model="email")
                         small#emailHelp.form-text.text-muted Nunca compartiremos su correo electrónico con nadie.
                       .form-group
                         label.text-white(for='exampleInputPassword1') Contraseña
-                        input#exampleInputPassword1.form-control(type='password', placeholder='Password')
-                      .form-group
-                        a(href='#' data-toggle='modal' data-target='#exampleModal' data-whatever='@mdo') Olvide mi contraseña
+                        input#exampleInputPassword1.form-control(type='password', placeholder='Password' v-model="password")
+                      // .form-group
+                      //   a(href='#' data-toggle='modal' data-target='#exampleModal' data-whatever='@mdo') Olvide mi contraseña
                       .form-group.form-check
                         input#exampleCheck1.form-check-input(type='checkbox')
                         label.form-check-label.color-oscuro(for='exampleCheck1') Recordar
@@ -51,7 +53,8 @@
                           .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Cerrar
                             button.btn.btn-primary(type='button') Enviar
-    section.bg-blanco
+    SubHeader(v-if="user")    
+    section.bg-blanco.py-4
       .container
         .row.d-flex.justify-content-center
           .col-md-12
@@ -133,7 +136,7 @@
                         h4.text-white Motivacionales
                       .col-4.bg-terciario.d-flex.align-items-center
                         img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-    section.bg-blanco
+    section.bg-blanco.py-4
       .container
         .row.d-flex.justify-content-center
           .col-md-12
@@ -183,14 +186,64 @@
 </template>
 
 <script>
-import Header from './frontoffice/Header'
-import Footer from './frontoffice/Footer'
+import SubHeader from "./frontoffice/SubHeader";
+import Header from "./frontoffice/Header";
+import Footer from "./frontoffice/Footer";
 export default {
-  components:{Header,Footer},
- 
-}
+  components: { Header, Footer, SubHeader },
+  data() {
+    return {
+      email: "",
+      password: "",
+      alert: false,
+      message: "",
+      user: null
+    };
+  },
+  created() {
+    this.user = localStorage.getItem("user-ourbook")
+      ? JSON.parse(localStorage.getItem("user-ourbook"))
+      : null;
+  },
+  methods: {
+    Login() {
+      if (this.email != "" && this.password != "") {
+        let data = { username: this.email, password: this.password };
+        fetch("http://localhost:3000/api/auth", {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        })
+          .then(res => res.json())
+          .then(res => {
+            if (res.success) {
+              let myUser = {
+                nombres: res.data.f1,
+                apellidos: res.data.f2,
+                tipo: res.data.f3,
+                id: res.data.f4
+              };
+              localStorage.setItem("user-ourbook", JSON.stringify(myUser));
+              window.location.reload();
+            } else {
+              this.alert = true;
+              this.message = res.message;
+              setTimeout(() => {
+                this.alert = false;
+              }, 2000);
+            }
+          });
+      } else {
+        this.alert = true;
+        this.message = "Ingresa usuario y contraseña";
+        setTimeout(() => {
+          this.alert = false;
+        }, 2000);
+      }
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

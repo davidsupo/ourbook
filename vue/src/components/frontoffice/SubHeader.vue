@@ -3,7 +3,7 @@
     .container
       .row.py-2
         nav.col-sm-12.navbar.navbar-expand-lg.navbar-dark
-          a.navbar-brand(href='#') Daniel S Mendez
+          a.navbar-brand(href='#') {{user.nombres}}
           button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNavDropdown', aria-controls='navbarNavDropdown', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
           #navbarNavDropdown.collapse.navbar-collapse
@@ -23,13 +23,30 @@
                   | Mi cuenta
                 .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                   router-link.dropdown-item(to='/perfil') Datos de Perfil
-                  router-link.dropdown-item(to='/') Cerrar Sesión
+                  router-link.dropdown-item(to='/perfil' v-if="user.tipo=='A'") Administración
+                  .dropdown-item.cursor-pointer(@click="Logout()") Cerrar Sesión
 
 </template>
 
 <script>
 export default {
-
+  data(){
+    return{
+      user:null
+    }
+  },
+  created(){
+    this.user = localStorage.getItem("user-ourbook")
+      ? JSON.parse(localStorage.getItem("user-ourbook"))
+      : null;
+  },
+  methods:{
+    Logout(){
+      localStorage.removeItem('user-ourbook');
+      this.$router.replace('/');
+      window.location.reload();
+    }
+  }
 }
 </script>
 

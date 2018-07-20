@@ -19,33 +19,33 @@
                             <h4>Verifica tus Datos</h4>
                             <form class="row">
                                 <div class="col-sm-12 col-md-6 py-3">
-                                    <label for="ruc">Nombre</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="Daniel" disabled>
+                                    <label >Nombre</label>
+                                    <input class="form-control" v-model="user.nombres" disabled>
                                 </div>
                                 <div class="col-sm-12 col-md-6 py-3">
                                     <label for="razon">Apellidos</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="Sanchez Méndez" disabled>
+                                    <input class="form-control" v-model="user.apellidos" disabled>
                                 </div>
                                 <div class="col-sm-12 col-md-6 py-3">
                                     <label for="direccion">Dirección</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="Av. Bolognesi 1129" disabled>
+                                    <input class="form-control"  v-model="user.direccion" disabled>
                                 </div>
                                 <div class="col-sm-12 col-md-6 py-3">
                                     <label for="ciudad">Ciudad</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="Chiclayo" disabled>
+                                    <input class="form-control" v-model="user.ciudad" disabled>
                                 </div>
                                 <div class="col-sm-12 col-md-6 py-3">
                                     <label for="persona">Celular</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="990344872" disabled>
+                                    <input class="form-control" v-model="user.celular" disabled>
                                 </div>
                                 <div class="col-sm-12 col-md-6 py-3">
                                     <label for="persona">Teléfono</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="74 238035" disabled>
+                                    <input class="form-control" v-model="user.telefono" disabled>
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 py-3">
                                     <label for="persona">Correo</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="danielunprg@gmail.com" disabled>
+                                    <input class="form-control" v-model="user.correo" disabled>
                                 </div>
                             </form>
                             
@@ -69,7 +69,21 @@ import Footer from './Footer'
 import SubHeader from './SubHeader'
 import ParallaxPortada1 from './ParallaxPortada1'
 export default {
-  components:{Header,Footer,SubHeader,ParallaxPortada1}
+  components:{Header,Footer,SubHeader,ParallaxPortada1},
+  data(){
+      return{
+          user:null,
+      }
+  },
+  created(){
+      let id = JSON.parse(localStorage.getItem('user-ourbook')).id;
+      fetch('http://localhost:3000/api/usuario/profile/'+id)
+      .then(res=>res.json())
+      .then(res=>this.user = res.data)
+  },
+  methods:{
+
+  }
 }
 </script>
 

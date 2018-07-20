@@ -10,6 +10,9 @@ export default {
 </script>
 
 <style>
+.cursor-pointer{
+  cursor: pointer;
+}
 .fade-enter-active {
   transition: opacity .2s ease;
 }
