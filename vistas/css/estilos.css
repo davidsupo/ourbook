@@ -184,22 +184,8 @@ header .navbar{
 }
 
 /*CONTENIDO*/
-.contenido{
-    margin-top: -200px;
-}
-
-.introduccion{
-    padding: 45px 0px;
-    /*background: #fff;*/
-    font-size: 18px;
-
-}
-
-.mision {
-    padding: 55px 95px;
-    background: #F9F9F9;
-    font-size: 18px;
-    padding-bottom: 0px;
+.boton-estados:hover{
+    background: #1f2b49;
 }
 
 @font-face {

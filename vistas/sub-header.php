@@ -15,6 +15,9 @@
                         <a class="nav-link" href="#">Libros Alquilados</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#">Compartir</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Libros Compartidos</a>
                     </li>
                     <li class="nav-item dropdown">

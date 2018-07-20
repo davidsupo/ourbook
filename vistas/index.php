@@ -30,9 +30,44 @@
                                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                                     <label class="form-check-label color-oscuro" for="exampleCheck1">Recordar</label>
                                                 </div>
+                                                <div class="form-group">
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Olvide mi contraseña</a>
+                                                </div>
                                                 <button type="submit" class="btn btn-primary text-white">Ingresar</button>
                                                 <button type="submit" class="bg-terciario btn text-white">Regístrate</button>
                                             </form>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Recuperar mi contraseña</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="alert alert-success" role="alert">
+                                                            En su correo recibirá su contraseña
+                                                        </div>
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Su correo no esta registrado
+                                                        </div>
+                                                        <form>
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Correo:</label>
+                                                                <input type="text" class="form-control" id="recipient-name">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="button" class="btn btn-primary">Enviar</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>

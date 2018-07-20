@@ -35,9 +35,9 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <h6 class="delgado">Editorial: Nombre</h6>
-                                        <h6 class="delgado">Temática: Nombre</h6>
-                                        <h6 class="delgado">Editorial: Nombre</h6>
+                                        <h6 class="delgado">Categoría: Nombre</h6>
                                         <h6 class="delgado">Colección: Nombre</h6>
+                                        <h6 class="delgado">Fecha de Publicación: Nombre</h6>
                                         
                                     </div>
                                     <div class="col-sm-12">
@@ -50,26 +50,27 @@
                         </div>
 
                         <div class="row py-5">
-                            <div class="col-sm-12 col-md-3">
-                                <div class="row bg-blanco">
-                                    <div class="col-sm-12 py-3">
-                                        <h3 class="text-black text-center delgado">Estados del Libro a alquilar</h3>
+                            <div class="col-sm-12 col-md-3 bg-terciario">
+                                <div class="row ">
+                                    <div class="col-sm-12 py-3 altura-igual">
+                                        <h3 class="text-white text-center negrita">Estados del Libro a alquilar</h3>
+                                        <p class="text-white text-center">Para alquilar, primero elije una de estas tres opciónes</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-9 bg-secundario">
+                            <div class="col-sm-12 col-md-9 bg-secundario px-0">
                                 <div class="row">
-                                    <a href="#" class="col-sm-12 col-md-4 py-3">
-                                        <h3 class="text-white text-center delgado"><i class="fas fa-star"></i> <br>Muy Bueno</h3>
-                                        <p class="text-white">Son libros recien comprados y con un tiempo de uso maximo de 6 meses</p>
+                                    <a href="#" class="col-sm-12 col-md-4 py-3 altura-igual boton-estados">
+                                        <h3 class="text-white text-center delgado"><i class="fas fa-star"></i><i class="fas fa-star"></i><br>Muy Bueno</h3>
+                                        <p class="text-white text-center">Son libros recien comprados y con un tiempo de uso maximo de 6 meses</p>
                                     </a>
-                                    <a href="#" class="col-sm-12 col-md-4 py-3 border-left">
+                                    <a href="#" class="col-sm-12 col-md-4 py-3 border-left altura-igual boton-estados">
                                         <h3 class="text-white text-center delgado"><i class="fas fa-star-half-alt"></i> <br>Bueno</h3>
-                                        <p class="text-white">Son libros con un tiempo de uso maximo de 12 meses</p>
+                                        <p class="text-white text-center">Son libros con un tiempo de uso maximo de 12 meses</p>
                                     </a>
-                                    <a href="#" class="col-sm-12 col-md-4 py-3 border-left">
+                                    <a href="#" class="col-sm-12 col-md-4 py-3 border-left altura-igual boton-estados">
                                         <h3 class="text-white text-center delgado"><i class="fas fa-star-half"></i> <br>Regular</h3>
-                                        <p class="text-white">Son libros con un tiempo de uso mayor de 12 meses</p>
+                                        <p class="text-white text-center">Son libros con un tiempo de uso mayor de 12 meses</p>
                                     </a>
                                 </div>
                             </div>
