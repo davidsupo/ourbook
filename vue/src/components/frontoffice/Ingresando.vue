@@ -65,11 +65,11 @@
               // Add Arrows
               .swiper-button-next
               .swiper-button-prev
-    ListadoCategoria
-    ListadoCategoria
+    // ListadoCategoria
+    // ListadoCategoria
     ParallaxCompartir
-    ListadoCategoria
-    ListadoCategoria
+    // ListadoCategoria
+    // ListadoCategoria
     Footer
 </template>
 
@@ -77,11 +77,11 @@
 import Header from './Header'
 import Footer from './Footer'
 import SubHeader from './SubHeader'
-import ListadoCategoria from './ListadoCategoria'
+// import ListadoCategoria from './ListadoCategoria'
 import ParallaxPortada1 from './ParallaxPortada1'
 import ParallaxCompartir from './ParallaxCompartir'
 export default {
-  components:{Header,Footer,SubHeader,ListadoCategoria,ParallaxPortada1,ParallaxCompartir}
+  components:{Header,Footer,SubHeader,ParallaxPortada1,ParallaxCompartir}
 }
 </script>
 

@@ -23,7 +23,7 @@
                   | Mi cuenta
                 .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                   router-link.dropdown-item(to='/perfil') Datos de Perfil
-                  router-link.dropdown-item(to='/perfil' v-if="user.tipo=='A'") Administración
+                  router-link.dropdown-item(to='/admin' v-if="user.tipo=='A'") Administración
                   .dropdown-item.cursor-pointer(@click="Logout()") Cerrar Sesión
 
 </template>

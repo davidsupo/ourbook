@@ -62,80 +62,20 @@
               .col-sm-12.col-md-12.mb-3
                 h1.delgado CATEGORÍA DE LIBROS
                 .bg-primario.mb-3(style='width:5%; height:3px;')
-              .col-sm-12.col-md-12
-                .row.bg-oscuro
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Clásicos
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white BestSellers
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Top Autores
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Lo más nuevo
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Biografías
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Deportes
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Gastronomía
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Novela
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Histórica
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Comics
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Tecnología
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
-                  .col-sm-12.col-md-4.my-3
-                    .row
-                      .col-8.bg-azul-oscuro.py-4
-                        h4.text-white Motivacionales
-                      .col-4.bg-terciario.d-flex.align-items-center
-                        img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')
+              template(v-if="!categorias")
+                .col-sm-12.col-md-12.my-5
+                  .row.bg-oscuro
+                    Spinner
+              template(v-else)
+                .col-sm-12.col-md-12
+                  .row.bg-oscuro
+                    template(v-for="categoria in categorias")
+                      router-link(:to="{path: '/categoria/' + categoria.id_categoria}" tag="div").col-sm-12.col-md-4.my-3.cursor-pointer
+                        .row
+                          .col-8.bg-azul-oscuro.py-4
+                            h4.text-white {{categoria.nombre}}
+                          .col-4.bg-terciario.d-flex.align-items-center
+                            img.img-fluid(src='img/icono-arte.png', class='icono-pequeño', alt='Responsive image')  
     section.bg-blanco.py-4
       .container
         .row.d-flex.justify-content-center
@@ -189,16 +129,21 @@
 import SubHeader from "./frontoffice/SubHeader";
 import Header from "./frontoffice/Header";
 import Footer from "./frontoffice/Footer";
+import Spinner from "./global/Spinner";
 export default {
-  components: { Header, Footer, SubHeader },
+  components: { Header, Footer, SubHeader,Spinner},
   data() {
     return {
       email: "",
       password: "",
       alert: false,
       message: "",
-      user: null
+      user: null,
+      categorias:null
     };
+  },
+  mounted(){
+    this.listarCategorias();
   },
   created() {
     this.user = localStorage.getItem("user-ourbook")
@@ -206,6 +151,14 @@ export default {
       : null;
   },
   methods: {
+    listarCategorias(){
+      fetch('http://localhost:3000/api/categoria')
+      .then(res=>res.json())
+      .then(res=>{
+        this.categorias=res.data
+        this.categorias = this.categorias.slice(0,12);
+      })
+    },
     Login() {
       if (this.email != "" && this.password != "") {
         let data = { username: this.email, password: this.password };

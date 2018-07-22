@@ -23,16 +23,18 @@ export const routes= [
     component:Home
   },
   {
-    path:'/compra',
-    component:Compra
+    path:'/compra/:id',
+    component:Compra,
+    props:true
   },
   {
     path:'/ingresando',
     component:Ingresando
   },
   {
-    path:'/libro',
-    component:Libro
+    path:'/libros/:id',
+    component:Libro,
+    props:true
   },
   {
     path:'/login',
@@ -55,8 +57,9 @@ export const routes= [
     component: Perfil
   },
   {
-    path: '/categoria',
-    component: Categoria
+    path: '/categoria/:id',
+    component: Categoria,
+    props:true
   },
   {
     path: '/admin',
