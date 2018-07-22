@@ -41,22 +41,14 @@
                                         <div class="col-sm-12 py-3">
                                             <h5>Categorías</h5>
                                             <div class="row">
-                                                <div class="col-sm-4 custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-                                                </div>
-                                                <div class="col-sm-4 custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                    <label class="custom-control-label" for="customCheck2">Check this custom checkbox</label>
-                                                </div>
-                                                <div class="col-sm-4 custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                                    <label class="custom-control-label" for="customCheck3">Check this custom checkbox</label>
-                                                </div>
-                                                <div class="col-sm-4 custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                                    <label class="custom-control-label" for="customCheck4">Check this custom checkbox</label>
-                                                </div>
+                                                <template v-for="categoria in categorias">
+                                                    <div class="col-sm-4 custom-control custom-checkbox" :key="categoria.id_categoria">
+                                                    <input type="checkbox" class="custom-control-input" :value ="categoria.id_categoria" :id="categoria.id_categoria" v-model="selectCategorias">
+                                                    <label class="custom-control-label" :for="categoria.id_categoria">{{categoria.nombre}}</label>
+                                            </div>
+
+                                                </template>
+                                               
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
@@ -100,59 +92,70 @@ export default {
   components: { Footer },
   data() {
     return {
+      categorias: null,
+      selectCategorias: [],
       image: null,
-      currentImage:'',
-      titulo:'',
-      autor:'',
-      editorial:'',
-      precio:'',
-      fecha:'',
-      ejemplares:'',
-      sinopsis:'',
+      currentImage: "",
+      titulo: "",
+      autor: "",
+      editorial: "",
+      precio: "",
+      fecha: "",
+      ejemplares: "",
+      sinopsis: ""
     };
   },
+  mounted() {
+    this.listarCategorias();
+  },
   methods: {
-      Registrar(){
-          let form = new FormData();
-          form.append('photo',this.image);
-          form.append('titulo',this.titulo);
-          form.append('autor',this.autor);
-          form.append('editorial',this.editorial);
-          form.append('precio',this.precio);
-          form.append('fecha',this.fecha);
-          form.append('ejemplares',this.ejemplares);
-          form.append('sinopsis',this.sinopsis);
-          fetch('http://localhost:3000/api/libro',{
-              method:'post',
-              body: form
-          })
-          .then(res=>res.json())
-          .then(res=>{
-              if(res.success){
-                  this.image = null;
-                  this.titulo='';
-                  this.autor='';
-                  this.editorial='';
-                  this.precio='';
-                  this.fecha='';
-                  this.ejemplares='';
-                  this.sinopsis='';
-                  $('#blah').attr('src','https://goo.gl/cYvfw8');
-              }
-          });
-      },
+    listarCategorias() {
+      fetch("http://localhost:3000/api/categoria")
+        .then(res => res.json())
+        .then(res => (this.categorias = res.data));
+    },
+    Registrar() {
+      let form = new FormData();
+      form.append("photo", this.image);
+      form.append("titulo", this.titulo);
+      form.append("autor", this.autor);
+      form.append("editorial", this.editorial);
+      form.append("precio", this.precio);
+      form.append("fecha", this.fecha);
+      form.append("ejemplares", this.ejemplares);
+      form.append("sinopsis", this.sinopsis);
+      form.append("categorias",JSON.stringify(this.selectCategorias));
+      fetch("http://localhost:3000/api/libro", {
+        method: "post",
+        body: form
+      })
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            this.image = null;
+            this.titulo = "";
+            this.autor = "";
+            this.editorial = "";
+            this.precio = "";
+            this.fecha = "";
+            this.ejemplares = "";
+            this.sinopsis = "";
+            this.selectCategorias = [];
+            $("#blah").attr("src", "https://goo.gl/cYvfw8");
+          }
+        });
+    },
     onFileChange(e) {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.image = files[0];
-       var reader = new FileReader();
+      var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-            };
+      reader.onload = function(e) {
+        $("#blah").attr("src", e.target.result);
+      };
 
-            reader.readAsDataURL(files[0]);
+      reader.readAsDataURL(files[0]);
     }
   }
 };
