@@ -10,11 +10,9 @@
             .list-group
               a.list-group-item.list-group-item-action.active(href='#')
                 | Categorías
-              a.list-group-item.list-group-item-action(href='#') Clasicos
-              a.list-group-item.list-group-item-action(href='#') BetSellers
-              a.list-group-item.list-group-item-action(href='#') Top Autores
-              a.list-group-item.list-group-item-action(href='#') Top Autores
-              a.list-group-item.list-group-item-action.disabled(href='#') Biografías
+              template(v-for="cat in categorias")
+                router-link(:to="{path:'/categoria/'+cat.id_categoria}").list-group-item.list-group-item-action {{cat.nombre}}
+              
           .col-sm-9
             // Swiper
             .swiper-container
@@ -68,7 +66,7 @@
     // ListadoCategoria
     // ListadoCategoria
     ParallaxCompartir
-    // ListadoCategoria
+    ListadoCategorias
     // ListadoCategoria
     Footer
 </template>
@@ -77,11 +75,26 @@
 import Header from './Header'
 import Footer from './Footer'
 import SubHeader from './SubHeader'
-// import ListadoCategoria from './ListadoCategoria'
+import ListadoCategorias from './ListaCategorias'
 import ParallaxPortada1 from './ParallaxPortada1'
 import ParallaxCompartir from './ParallaxCompartir'
 export default {
-  components:{Header,Footer,SubHeader,ParallaxPortada1,ParallaxCompartir}
+  components:{Header,Footer,SubHeader,ListadoCategorias,ParallaxPortada1,ParallaxCompartir},
+  data(){
+    return{
+      categorias:null
+    }
+  },
+  mounted(){
+    this.listarCategorias();
+  },
+  methods:{
+    listarCategorias(){
+      fetch('http://localhost:3000/api/categoria')
+      .then(res=>res.json())
+      .then(res=>this.categorias=res.data)
+    }
+  }
 }
 </script>
 

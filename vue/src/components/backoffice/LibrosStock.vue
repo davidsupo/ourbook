@@ -42,25 +42,19 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    <template v-for="libro in libros">
+                                        <tr :key="libro.id_libro">
+                                            <td>{{libro.titulo}}</td>
+                                            <td>{{libro.autor}}</td>
+                                            <td>{{libro.editorial}}</td>
+                                            <td>{{libro.precio}}</td>
+                                            <td>{{libro.fecha_publicacion}}</td>
+                                            <td>{{libro.ejemplares}}</td>
+                                            <td><router-link class="nav-link d-flex justify-content-center" to="/admin/editarlibro"><i class="fas fa-angle-double-right"></i></router-link></td>
+                                        </tr>
+                                    </template>
+                                   
                                     
-                                    <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>66</td>
-                                    <td>2009/01/12</td>
-                                    <td>$86,000</td>
-                                    <td><router-link class="nav-link d-flex justify-content-center" to="/admin/editarlibro"><i class="fas fa-angle-double-right"></i></router-link></td>
-                                    </tr>
-                                    <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td>$433,060</td>
-                                    <td><router-link class="nav-link d-flex justify-content-center" to="/admin/editarlibro"><i class="fas fa-angle-double-right"></i></router-link></td>
-                                    </tr>
                                     
                                 </tbody>
                                 </table>
@@ -79,7 +73,27 @@
 import Footer from './Footer'
 export default {
   components:{Footer},
- 
+    data(){
+        return{
+            libros:null
+        }
+    },
+    mounted(){
+        this.listarLibros();
+    },
+    methods:{
+        listarLibros(){
+            fetch('http://localhost:3000/api/librosejemplares')
+            .then(res=>res.json())
+            .then(res=>{
+                this.libros=res.data;
+                this.libros.map(el=>{
+                    if(el.fecha_publicacion)
+                        el.fecha_publicacion = el.fecha_publicacion.substr(0,10)
+                })
+            })
+        }
+    }
 }
 </script>
 

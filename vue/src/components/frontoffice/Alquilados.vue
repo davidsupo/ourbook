@@ -25,19 +25,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Poesia Completa</td>
-                        <td>Cesar Vallejos</td>
-                        <td><i class="fas fa-star" data-toggle="tooltip" data-placement="top" title="Muy Bueno"></i></td>
-                        <td>01/08/18</td>
-                        <td>07/08/18</td>
-                        <td><span class="badge badge-pill badge-primary">En Alquiler</span></td>
-                        <td>s./ 25.00</td>
-                        <td>s./ 0.00</td>
-                        <td>s./ 25.00</td>
-                        </tr>
+                        <template v-for="libro in libros">
+
+                       
+                        <tr :key="libro.autor">
+                        <th scope="row">{{libro.numero}}</th>
+                        <td>{{libro.titulo}}</td>
+                        <td>{{libro.autor}}</td>
+                        <template v-if="libro.uso==1">
+                            <td><i class="fas fa-star" data-toggle="tooltip" data-placement="top" :title="libro.estado"></i></td>
+                        </template>
+                        <template v-if="libro.uso==2">
+                            <td><i class="fas fa-star-half-alt" data-toggle="tooltip" data-placement="top" :title="libro.estado"></i></td>
+                        </template>
+                        <template v-if="libro.uso==3">
+                            <td><i class="fas fa-star-half" data-toggle="tooltip" data-placement="top" :title="libro.estado"></i></td>
+                        </template>
                         
+                        <td>{{libro.fecha_alquiler.substr(0,10)}}</td>
+                        <td>{{libro.fecha_fin.substr(0,10)}}</td>
+                        <td><span class="badge badge-pill badge-primary">{{libro.proceso}}</span></td>
+                        <td>S/ {{libro.precio}}</td>
+                        <td>S/ {{libro.penalidad}}</td>
+                        <td>S/ {{libro.precio + libro.penalidad}}</td>
+                        </tr>
+                         </template>
                     </tbody>
                     </table>
                 
@@ -55,7 +67,48 @@ import Footer from './Footer'
 import SubHeader from './SubHeader'
 import ParallaxPortada1 from './ParallaxPortada1'
 export default {
-  components:{Header,Footer,SubHeader,ParallaxPortada1}
+  components:{Header,Footer,SubHeader,ParallaxPortada1},
+  data(){
+      return{
+          libros:null,
+            user:null
+      }
+  },
+  mounted(){
+      this.user = JSON.parse(localStorage.getItem('user-ourbook'));
+      this.listarLibros();
+  },
+  methods:{
+      listarLibros(){
+          fetch('http://localhost:3000/api/usuario/alquilados/'+this.user.id)
+          .then(res=>res.json())
+          .then(res=>{
+              this.libros=res.data
+              let count = 0;
+              this.libros.map(el=>{
+                  count++;
+                  el.numero = count;
+                  var date1 = new Date(el.fecha_fin);
+var date2 = new Date();
+var timeDiff = date2.getTime() - date1.getTime();
+var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+console.log(diffDays)
+                    if(diffDays>0){
+                        el.penalidad = 2*diffDays;
+                    }else{
+                        el.penalidad = 0;
+                    }
+                  if(el.uso==1){
+                      el.estado ='Muy Bueno'
+                  }else if(el.uso==2){
+                      el.estado='Bueno'
+                  }else{
+                      el.estado='Regular'
+                  }
+              })
+          })
+      }
+  }
 }
 </script>
 

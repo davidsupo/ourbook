@@ -24,18 +24,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Poesia Completa</td>
-                        <td>Cesar Vallejos</td>
-                        <td><i class="fas fa-star" data-toggle="tooltip" data-placement="top" title="Muy Bueno"></i></td>
-                        <td>01/08/18</td>
-                        <td>07/08/18</td>
-                        
-                        <td>s./ 25.00</td>
-                        <td>7%</td>
-                        <td>s./ 25.00</td>
-                        </tr>
+                        <template v-for="libro in libros">
+                            <tr :key="libro.titulo">
+                            <th scope="row">{{libro.numero}}</th>
+                            <td>{{libro.titulo}}</td>
+                            <td>{{libro.autor}}</td>
+                             <template v-if="libro.uso==1">
+                            <td><i class="fas fa-star" data-toggle="tooltip" data-placement="top" :title="libro.estado"></i></td>
+                        </template>
+                        <template v-if="libro.uso==2">
+                            <td><i class="fas fa-star-half-alt" data-toggle="tooltip" data-placement="top" :title="libro.estado"></i></td>
+                        </template>
+                        <template v-if="libro.uso==3">
+                            <td><i class="fas fa-star-half" data-toggle="tooltip" data-placement="top" :title="libro.estado"></i></td>
+                        </template>
+                            <td>{{libro.fecha_compartido.substr(0,10)}}</td>
+                            <td>{{libro.fecha_fin.substr(0,10)}}</td>
+                            
+                            <td>S/ {{libro.total}}</td>
+                            <td>{{libro.porcentaje}}</td>
+                            <td>S/ {{Math.round((libro.total/2)*100)/100}}</td>
+                            </tr>
+                        </template>
                         
                     </tbody>
                     </table>
@@ -48,15 +58,58 @@
 </template>
 
 <script>
-import Header from './Header'
-import Footer from './Footer'
-import SubHeader from './SubHeader'
-import ParallaxPortada1 from './ParallaxPortada1'
+import Header from "./Header";
+import Footer from "./Footer";
+import SubHeader from "./SubHeader";
+import ParallaxPortada1 from "./ParallaxPortada1";
 export default {
-  components:{Header,Footer,SubHeader,ParallaxPortada1}
-}
+  components: { Header, Footer, SubHeader, ParallaxPortada1 },
+  data() {
+    return {
+      user: null,
+      libros: null
+    };
+  },
+  mounted() {
+    this.user = JSON.parse(localStorage.getItem("user-ourbook"));
+    this.listarLibros();
+  },
+  methods: {
+    listarLibros() {
+      fetch("http://localhost:3000/api/usuario/compartidos/" + this.user.id)
+        .then(res => res.json())
+        .then(res => {
+          this.libros = res.data;
+          let count = 0;
+          this.libros.map(el => {
+            count++;
+            el.numero = count;
+            if (el.uso == 1) {
+              el.estado = "Muy Bueno";
+              el.porcentaje = "50%";
+            } else if (el.uso == 2) {
+              el.estado = "Bueno";
+              el.porcentaje = "50%";
+            } else {
+              el.estado = "Regular";
+              el.porcentaje = "50%";
+            }
+            let total = 0;
+            el.alquileres.map(al=>{
+                if(al.precio!=null){
+                    total+=al.precio;
+                }
+                if(al.penalidad!=null){
+                    total+=al.penalidad;
+                }
+            })
+            el.total = total;
+          });
+        });
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>
