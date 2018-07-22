@@ -16,6 +16,12 @@ import RegistrarAdmin from './components/backoffice/RegistrarAdmin'
 import Clientes from './components/backoffice/Clientes'
 import Categorias from './components/backoffice/Categorias'
 import RegistrarCateg from './components/backoffice/RegistrarCateg'
+import LibrosStock from './components/backoffice/LibrosStock'
+import EditarLibro from './components/backoffice/EditarLibro'
+import RegistrarLibro from './components/backoffice/RegistrarLibro'
+import LibrosAlquilados from './components/backoffice/LibrosAlquilados'
+import DetalleLibroAlquilado from './components/backoffice/DetalleLibroAlquilado'
+import LibrosCompartidos from './components/backoffice/LibrosCompartidos'
 
 export const routes= [
   {
@@ -88,6 +94,30 @@ export const routes= [
       {
         path: 'registrarCategoria',
         component: RegistrarCateg
+      },
+      {
+        path: 'librosstock',
+        component: LibrosStock
+      },
+      {
+        path: 'editarlibro',
+        component: EditarLibro
+      },  
+      {
+        path: 'registrarlibro',
+        component: RegistrarLibro
+      },
+      {
+        path: 'librosalquilados',
+        component: LibrosAlquilados
+      },
+      {
+        path: 'detallelibroalquilado',
+        component: DetalleLibroAlquilado
+      },
+      {
+        path: 'libroscompartidos',
+        component: LibrosCompartidos
       },
     ]
   },

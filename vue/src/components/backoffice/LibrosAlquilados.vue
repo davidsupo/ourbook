@@ -4,9 +4,9 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                <a href="#">Libros de Stock</a>
+                <a href="#">Libros Alquilados</a>
                 </li>
-                <li class="breadcrumb-item active">Lista de Libros</li>
+                <li class="breadcrumb-item active">Lista de Libros Alquilados</li>
             </ol>
         
             <div class="row">
@@ -21,45 +21,57 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Título</th>
                                         <th>Autor</th>
-                                        <th>Editorial</th>
-                                        <th>Precio de Compra</th>
-                                        <th>Fecha de Publicación</th>
-                                        <th># Ejemplares</th>
+                                        <th>Inicio</th>
+                                        <th>Fin</th>
+                                        <th>Proceso</th>
+                                        <th>Precio</th>
+                                        <th>Penalidad</th>
+                                        <th>Total</th>
                                         <th>Ver Más</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Título</th>
                                         <th>Autor</th>
-                                        <th>Editorial</th>
-                                        <th>Precio de Compra</th>
-                                        <th>Fecha de Publicación</th>
-                                        <th># Ejemplares</th>
+                                        <th>Inicio</th>
+                                        <th>Fin</th>
+                                        <th>Proceso</th>
+                                        <th>Precio</th>
+                                        <th>Penalidad</th>
+                                        <th>Total</th>
                                         <th>Ver Más</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     
                                     <tr>
-                                    <td>Ashton Cox</td>
+                                    <td>1</td>
                                     <td>Junior Technical Author</td>
                                     <td>San Francisco</td>
-                                    <td>66</td>
                                     <td>2009/01/12</td>
+                                    <td>2009/01/12</td>
+                                    <td><span class="badge badge-pill badge-primary">En Alquiler</span></td>
                                     <td>$86,000</td>
-                                    <td><router-link class="nav-link d-flex justify-content-center" to="/admin/editarlibro"><i class="fas fa-angle-double-right"></i></router-link></td>
+                                    <td>$86,000</td>
+                                    <td>$86,000</td>
+                                    <td > <router-link class="nav-link d-flex justify-content-center" to="/admin/detallelibroalquilado"><i class="fas fa-angle-double-right"></i></router-link></td>
                                     </tr>
                                     <tr>
-                                    <td>Cedric Kelly</td>
+                                    <td>2</td>
                                     <td>Senior Javascript Developer</td>
                                     <td>Edinburgh</td>
-                                    <td>22</td>
                                     <td>2012/03/29</td>
+                                    <td>2012/03/29</td>
+                                    <td><span class="badge badge-pill badge-primary">Vencido</span></td>
                                     <td>$433,060</td>
-                                    <td><router-link class="nav-link d-flex justify-content-center" to="/admin/editarlibro"><i class="fas fa-angle-double-right"></i></router-link></td>
+                                    <td>$433,060</td>
+                                    <td>$433,060</td>
+                                    <td> <router-link class="nav-link d-flex justify-content-center" to="/admin/detallelibroalquilado"><i class="fas fa-angle-double-right"></i></router-link></td>
                                     </tr>
                                     
                                 </tbody>
