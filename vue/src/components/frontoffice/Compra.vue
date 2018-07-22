@@ -76,7 +76,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import SubHeader from "./SubHeader";
-import moment from "moment";
 import ParallaxPortada1 from "./ParallaxPortada1";
 import ParallaxCompartir from "./ParallaxCompartir";
 export default {

@@ -37,6 +37,28 @@
                                             <label for="ciudad">Precio de compra</label>
                                             <input class="form-control" v-model="precio" required>
                                         </div>
+                                        
+                                        <div class="col-sm-12 py-3">
+                                            <h5>Categorías</h5>
+                                            <div class="row">
+                                                <div class="col-sm-4 custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                                                </div>
+                                                <div class="col-sm-4 custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                    <label class="custom-control-label" for="customCheck2">Check this custom checkbox</label>
+                                                </div>
+                                                <div class="col-sm-4 custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                                    <label class="custom-control-label" for="customCheck3">Check this custom checkbox</label>
+                                                </div>
+                                                <div class="col-sm-4 custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck4">
+                                                    <label class="custom-control-label" for="customCheck4">Check this custom checkbox</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label for="persona">Fecha de Publicación</label>
                                             <input type="date" class="form-control" v-model="fecha" required>
