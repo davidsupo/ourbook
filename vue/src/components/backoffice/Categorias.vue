@@ -32,15 +32,13 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    
-                                    <tr>
-                                        <td>Ashton Cox</td>
-                                        <td>Junior Technical Author</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                    </tr>
+                                    <template v-for="categoria in categorias">
+                                    <tr :key="categoria.id_categoria">
+                                        <td>{{categoria.id_categoria}}</td>
+                                        <td>{{categoria.nombre}}</td>
+                                    </tr>    
+                                    </template>
+                                                                   
                                     
                                 </tbody>
                                 </table>
@@ -59,6 +57,21 @@
 import Footer from './Footer'
 export default {
   components:{Footer},
+  data(){
+      return{
+          categorias:null,
+      }
+  },
+  mounted(){
+      this.listarCategorias();
+  },
+  methods:{
+      listarCategorias(){
+          fetch('http://localhost:3000/api/categoria')
+          .then(res=>res.json())
+          .then(res=>this.categorias=res.data)
+      }
+  }
  
 }
 </script>
