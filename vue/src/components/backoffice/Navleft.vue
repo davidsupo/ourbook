@@ -53,10 +53,10 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="librosStock">
                         <li>
-                            <a href="navbar.html">Lista de Libros</a>
+                            <router-link class="nav-link" to="/admin/librosstock">Lista de Libros</router-link>
                         </li>
                         <li>
-                            <a href="cards.html">Nuevo Libro</a>
+                            <router-link class="nav-link" to="/admin/registrarlibro">Nuevo Libro</router-link>
                         </li>
                     </ul>
                 </li>
@@ -67,7 +67,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="librosAlquilados">
                         <li>
-                            <a href="navbar.html">Lista de Libros</a>
+                            <router-link class="nav-link" to="/admin/librosalquilados">Lista de Libros</router-link>
                         </li>
                     </ul>
                 </li>
@@ -78,7 +78,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="librosCompartidos">
                         <li>
-                            <a href="navbar.html">Lista de Libros</a>
+                            <router-link class="nav-link" to="/admin/libroscompartidos">Lista de Libros</router-link>
                         </li>
                     </ul>
                 </li>
@@ -202,6 +202,7 @@
 </template>
 
 <script>
+
 export default {
 
 }
