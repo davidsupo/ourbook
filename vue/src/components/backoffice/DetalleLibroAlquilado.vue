@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label >Id Alquiler</label>
-                                            <input class="form-control"  v-model="libro.id_alquiler"disabled>
+                                            <input class="form-control"  v-model="libro.id_alquiler" disabled>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label >Id Ejemplar</label>
