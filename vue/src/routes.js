@@ -113,8 +113,9 @@ export const routes= [
         component: LibrosAlquilados
       },
       {
-        path: 'detallelibroalquilado',
-        component: DetalleLibroAlquilado
+        path: 'detallelibroalquilado/:id',
+        component: DetalleLibroAlquilado,
+        props:true
       },
       {
         path: 'libroscompartidos',

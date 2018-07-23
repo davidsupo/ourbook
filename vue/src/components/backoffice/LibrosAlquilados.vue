@@ -59,7 +59,7 @@
                                             <td>S/ {{libro.precio}}</td>
                                             <td>S/ {{libro.penalidad}}</td>
                                             <td>S/ {{libro.precio + libro.penalidad}}</td>
-                                            <td > <router-link class="nav-link d-flex justify-content-center" to="/admin/detallelibroalquilado"><i class="fas fa-angle-double-right"></i></router-link></td>
+                                            <td > <router-link class="nav-link d-flex justify-content-center" :to="{path:'/admin/detallelibroalquilado/'+libro.id_alquiler}"><i class="fas fa-angle-double-right"></i></router-link></td>
                                         </tr>
                                     </template>
                                     
