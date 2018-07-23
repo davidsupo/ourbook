@@ -70,33 +70,34 @@
 </template>
 
 <script>
-import Footer from './Footer'
+import Footer from "./Footer";
 export default {
-  components:{Footer},
-    data(){
-        return{
-            libros:null
-        }
-    },
-    mounted(){
-        this.listarLibros();
-    },
-    methods:{
-        listarLibros(){
-            fetch('http://localhost:3000/api/librosejemplares')
-            .then(res=>res.json())
-            .then(res=>{
-                this.libros=res.data;
-                this.libros.map(el=>{
-                    if(el.fecha_publicacion)
-                        el.fecha_publicacion = el.fecha_publicacion.substr(0,10)
-                })
-            })
-        }
+  components: { Footer },
+  data() {
+    return {
+      libros: null
+    };
+  },
+  mounted() {
+    this.listarLibros();
+  },
+  methods: {
+    listarLibros() {
+      fetch("http://localhost:3000/api/librosejemplares")
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.data != null) {
+            this.libros = res.data;
+            this.libros.map(el => {
+              if (el.fecha_publicacion)
+                el.fecha_publicacion = el.fecha_publicacion.substr(0, 10);
+            });
+          }
+        });
     }
-}
+  }
+};
 </script>
 
 <style>
-
 </style>

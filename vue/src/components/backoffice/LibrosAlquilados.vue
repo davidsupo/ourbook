@@ -48,31 +48,22 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    <template v-for="libro in libros">
+                                        <tr :key="libro.numero">
+                                            <td>{{libro.numero}}</td>
+                                            <td>{{libro.titulo}}</td>
+                                            <td>{{libro.autor}}</td>
+                                            <td>{{libro.fecha_alquiler.substr(0,10)}}</td>
+                                            <td>{{libro.fecha_fin.substr(0,10)}}</td>
+                                            <td><span class="badge badge-pill badge-primary">{{libro.proceso}}</span></td>
+                                            <td>S/ {{libro.precio}}</td>
+                                            <td>S/ {{libro.penalidad}}</td>
+                                            <td>S/ {{libro.precio + libro.penalidad}}</td>
+                                            <td > <router-link class="nav-link d-flex justify-content-center" to="/admin/detallelibroalquilado"><i class="fas fa-angle-double-right"></i></router-link></td>
+                                        </tr>
+                                    </template>
                                     
-                                    <tr>
-                                    <td>1</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>2009/01/12</td>
-                                    <td>2009/01/12</td>
-                                    <td><span class="badge badge-pill badge-primary">En Alquiler</span></td>
-                                    <td>$86,000</td>
-                                    <td>$86,000</td>
-                                    <td>$86,000</td>
-                                    <td > <router-link class="nav-link d-flex justify-content-center" to="/admin/detallelibroalquilado"><i class="fas fa-angle-double-right"></i></router-link></td>
-                                    </tr>
-                                    <tr>
-                                    <td>2</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>2012/03/29</td>
-                                    <td>2012/03/29</td>
-                                    <td><span class="badge badge-pill badge-primary">Vencido</span></td>
-                                    <td>$433,060</td>
-                                    <td>$433,060</td>
-                                    <td>$433,060</td>
-                                    <td> <router-link class="nav-link d-flex justify-content-center" to="/admin/detallelibroalquilado"><i class="fas fa-angle-double-right"></i></router-link></td>
-                                    </tr>
+                                    
                                     
                                 </tbody>
                                 </table>
@@ -88,13 +79,40 @@
 </template>
 
 <script>
-import Footer from './Footer'
+import Footer from "./Footer";
 export default {
-  components:{Footer},
- 
-}
+  components: { Footer },
+  data() {
+    return {
+      libros: null
+    };
+  },
+  mounted() {
+    fetch("http://localhost:3000/api/libros/alquilados")
+      .then(res => res.json())
+      .then(res => {
+        if (res.success && res.data!=null) {
+          this.libros = res.data;
+          let count = 0;
+          this.libros.map(lib => {
+            count++;
+            var date1 = new Date(lib.fecha_fin);
+            var date2 = new Date();
+            var timeDiff = date2.getTime() - date1.getTime();
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            console.log(diffDays);
+            if (diffDays > 0) {
+              lib.penalidad = 2 * diffDays;
+            } else {
+              lib.penalidad = 0.00;
+            }
+            lib.numero = count;
+          });
+        }
+      });
+  }
+};
 </script>
 
 <style>
-
 </style>

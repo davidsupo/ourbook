@@ -46,29 +46,22 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    
-                                    <tr>
-                                    <td>1</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>2009/01/12</td>
-                                    <td>2009/01/12</td>
-                                    <td>David</td>
-                                    <td><span class="badge badge-pill badge-primary">En Alquiler</span></td>
-                                    <td>$86,000</td>
+                                    <template v-for="libro in libros">
+                                    <tr :key="libro.numero">
+                                    <td>{{libro.numero}}</td>
+                                    <td>{{libro.titulo}}</td>
+                                    <td>{{libro.autor}}</td>
+                                    <td>{{libro.fecha_compartido.substr(0,10)}}</td>
+                                    <td>{{libro.fecha_fin.substr(0,10)}}</td>
+                                    <td>{{libro.nombres}} {{libro.apellidos}}</td>
+                                    <td><span class="badge badge-pill badge-primary">{{libro.proceso}}</span></td>
+                                    <td>S/ {{libro.total}}</td>
                                     <td > <router-link class="nav-link d-flex justify-content-center" to="/admin/"><i class="fas fa-angle-double-right"></i></router-link></td>
                                     </tr>
-                                    <tr>
-                                    <td>2</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>2012/03/29</td>
-                                    <td>2012/03/29</td>
-                                    <td>Daniel</td>
-                                    <td><span class="badge badge-pill badge-primary">Libre</span></td>
-                                    <td>$433,060</td>
-                                    <td> <router-link class="nav-link d-flex justify-content-center" to="/admin/"><i class="fas fa-angle-double-right"></i></router-link></td>
-                                    </tr>
+
+                                    </template>
+                                  
+                                 
                                     
                                 </tbody>
                                 </table>
@@ -87,7 +80,45 @@
 import Footer from './Footer'
 export default {
   components:{Footer},
- 
+    data(){
+        return{
+            libros:null
+        }
+    },
+    mounted(){
+        this.listarLibros();
+    },
+    methods:{
+         listarLibros() {
+      fetch("http://localhost:3000/api/libros/compartidos")
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.data!=null) {
+            this.libros = res.data;
+            let count = 0;
+            this.libros.map(el => {
+              count++;
+              el.numero = count;            
+              let total = 0;
+              let alquiler = 'Libre';
+              el.alquileres.map(al => {
+                  if(al.proceso && al.proceso=='En alquiler'){
+                      alquiler = 'En alquiler'
+                  }
+                if (al.precio != null) {
+                  total += al.precio;
+                }
+                if (al.penalidad != null) {
+                  total += al.penalidad;
+                }
+              });
+              el.total = total;
+              el.proceso = alquiler;
+            });
+          }
+        });
+    }
+    }
 }
 </script>
 

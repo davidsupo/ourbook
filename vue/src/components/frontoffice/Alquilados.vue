@@ -62,56 +62,57 @@
 </template>
 
 <script>
-import Header from './Header'
-import Footer from './Footer'
-import SubHeader from './SubHeader'
-import ParallaxPortada1 from './ParallaxPortada1'
+import Header from "./Header";
+import Footer from "./Footer";
+import SubHeader from "./SubHeader";
+import ParallaxPortada1 from "./ParallaxPortada1";
 export default {
-  components:{Header,Footer,SubHeader,ParallaxPortada1},
-  data(){
-      return{
-          libros:null,
-            user:null
-      }
+  components: { Header, Footer, SubHeader, ParallaxPortada1 },
+  data() {
+    return {
+      libros: null,
+      user: null
+    };
   },
-  mounted(){
-      this.user = JSON.parse(localStorage.getItem('user-ourbook'));
-      this.listarLibros();
+  mounted() {
+    this.user = JSON.parse(localStorage.getItem("user-ourbook"));
+    this.listarLibros();
   },
-  methods:{
-      listarLibros(){
-          fetch('http://localhost:3000/api/usuario/alquilados/'+this.user.id)
-          .then(res=>res.json())
-          .then(res=>{
-              this.libros=res.data
-              let count = 0;
-              this.libros.map(el=>{
-                  count++;
-                  el.numero = count;
-                  var date1 = new Date(el.fecha_fin);
-var date2 = new Date();
-var timeDiff = date2.getTime() - date1.getTime();
-var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-console.log(diffDays)
-                    if(diffDays>0){
-                        el.penalidad = 2*diffDays;
-                    }else{
-                        el.penalidad = 0;
-                    }
-                  if(el.uso==1){
-                      el.estado ='Muy Bueno'
-                  }else if(el.uso==2){
-                      el.estado='Bueno'
-                  }else{
-                      el.estado='Regular'
-                  }
-              })
-          })
-      }
+  methods: {
+    listarLibros() {
+      fetch("http://localhost:3000/api/usuario/alquilados/" + this.user.id)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.data!=null) {
+            this.libros = res.data;
+            let count = 0;
+            this.libros.map(el => {
+              count++;
+              el.numero = count;
+              var date1 = new Date(el.fecha_fin);
+              var date2 = new Date();
+              var timeDiff = date2.getTime() - date1.getTime();
+              var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+              console.log(diffDays);
+              if (diffDays > 0) {
+                el.penalidad = 2 * diffDays;
+              } else {
+                el.penalidad = 0.00;
+              }
+              if (el.uso == 1) {
+                el.estado = "Muy Bueno";
+              } else if (el.uso == 2) {
+                el.estado = "Bueno";
+              } else {
+                el.estado = "Regular";
+              }
+            });
+          }
+        });
+    }
   }
-}
+};
 </script>
 
 <style>
-
 </style>

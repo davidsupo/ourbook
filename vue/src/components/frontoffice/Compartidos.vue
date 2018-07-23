@@ -79,32 +79,34 @@ export default {
       fetch("http://localhost:3000/api/usuario/compartidos/" + this.user.id)
         .then(res => res.json())
         .then(res => {
-          this.libros = res.data;
-          let count = 0;
-          this.libros.map(el => {
-            count++;
-            el.numero = count;
-            if (el.uso == 1) {
-              el.estado = "Muy Bueno";
-              el.porcentaje = "50%";
-            } else if (el.uso == 2) {
-              el.estado = "Bueno";
-              el.porcentaje = "50%";
-            } else {
-              el.estado = "Regular";
-              el.porcentaje = "50%";
-            }
-            let total = 0;
-            el.alquileres.map(al=>{
-                if(al.precio!=null){
-                    total+=al.precio;
+          if (res.success && res.data!=null) {
+            this.libros = res.data;
+            let count = 0;
+            this.libros.map(el => {
+              count++;
+              el.numero = count;
+              if (el.uso == 1) {
+                el.estado = "Muy Bueno";
+                el.porcentaje = "50%";
+              } else if (el.uso == 2) {
+                el.estado = "Bueno";
+                el.porcentaje = "50%";
+              } else {
+                el.estado = "Regular";
+                el.porcentaje = "50%";
+              }
+              let total = 0;
+              el.alquileres.map(al => {
+                if (al.precio != null) {
+                  total += al.precio;
                 }
-                if(al.penalidad!=null){
-                    total+=al.penalidad;
+                if (al.penalidad != null) {
+                  total += al.penalidad;
                 }
-            })
-            el.total = total;
-          });
+              });
+              el.total = total;
+            });
+          }
         });
     }
   }
