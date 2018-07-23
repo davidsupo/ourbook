@@ -16,40 +16,40 @@
                             Datos del Libro
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row" v-if="libro">
                                 <div class="col-sm-12 col-md-2">
-                                    <img src="https://goo.gl/cYvfw8" class="img-fluid" alt="Responsive image">
+                                    <img :src="libro.imagen" class="img-fluid" alt="Responsive image">
                                 </div>
                                 <div class="col-sm-12 col-md-10">
                                     <form class="row">
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label >Título</label>
-                                            <input class="form-control"  disabled>
+                                            <input class="form-control" v-model="libro.titulo"  disabled>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label for="razon">Autor</label>
-                                            <input class="form-control" disabled>
+                                            <input class="form-control" v-model="libro.autor" disabled>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label for="direccion">Editorial</label>
-                                            <input class="form-control"  disabled>
+                                            <input class="form-control" v-model="libro.editorial" disabled>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label for="ciudad">Precio</label>
-                                            <input class="form-control"  disabled>
+                                            <input class="form-control" v-model="libro.precio" disabled>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label for="persona">Fecha de Publicación</label>
-                                            <input class="form-control"  disabled>
+                                            <input class="form-control" v-model="libro.fecha_publicacion" disabled>
                                         </div>
                                         <div class="col-sm-12 col-md-6 py-3">
                                             <label for="persona"># Ejemplares</label>
-                                            <input class="form-control" disabled>
+                                            <input class="form-control" v-model="libro.ejemplares" disabled>
                                         </div>
 
                                         <div class="col-sm-12 col-md-12 py-3">
                                             <label for="persona">Sipnopsis</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" disabled></textarea>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" disabled v-model="libro.sinopsis" ></textarea>
                                         </div>
 
                                         <div class="col-sm-12 col-md-12 py-3">
@@ -76,8 +76,8 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Usuario</th>
-                                        <th>Uso</th>
                                         <th>Estado</th>
+                                      
                                         <th>Comfirmado</th>
                                         <th>Ver Más</th>
                                     </tr>
@@ -86,30 +86,36 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Usuario</th>
-                                        <th>Uso</th>
                                         <th>Estado</th>
+                                  
                                         <th>Comfirmado</th>
                                         <th>Ver Más</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    <template v-if="ejemplares">
+                                        <template v-for="ejemplar in ejemplares">
+                                            <tr :key="ejemplar.id_ejemplar">
+                                        <td>{{ejemplar.id_ejemplar}}</td>
+                                        <td>{{ejemplar.usuario}}</td>
+                                     
+                                        <template v-if="ejemplar.uso==1">
+                                                <td><i class="fas fa-star" data-toggle="tooltip" data-placement="top" title="Muy Bueno"></i></td>
+                                        </template>
+                                        <template v-if="ejemplar.uso==2">
+                                                <td><i class="fas fa-star-half-alt" data-toggle="tooltip" data-placement="top" title="Bueno"></i></td>
+                                        </template>
+                                        <template v-if="ejemplar.uso==3">
+                                            <td><i class="fas fa-star-half" data-toggle="tooltip" data-placement="top" title="Regular"></i></td>
+                                        </template> 
+                
+                                        <td>{{ejemplar.confirmado}}</td>
+                                        <td class="d-flex justify-content-center"><a href=""><i class="fas fa-angle-double-right"></i></a></td>
+                                        </tr>
+                                        </template>
+                                    </template>
                                     
-                                    <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>66</td>
-                                    <td>2009/01/12</td>
-                                    <td class="d-flex justify-content-center"><a href=""><i class="fas fa-angle-double-right"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td class="d-flex justify-content-center"><a href=""><i class="fas fa-angle-double-right"></i></a></td>
-                                    </tr>
+                                   
                                     
                                 </tbody>
                                 </table>
@@ -125,13 +131,56 @@
 </template>
 
 <script>
-import Footer from './Footer'
+import Footer from "./Footer";
 export default {
-  components:{Footer},
- 
-}
+  props: ["id"],
+  components: { Footer },
+  data() {
+    return {
+      libro: null,
+      ejemplares:null,
+    };
+  },
+  watch: {
+    id() {
+      this.obtenerLibro();
+    }
+  },
+  mounted() {
+    this.obtenerLibro();
+    this.listarEjemplares();
+  },
+  methods: {
+    obtenerLibro() {
+      fetch("http://localhost:3000/api/libro/info/" + this.id)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.data != null) {
+            this.libro = res.data;
+            this.libro.imagen = `http://localhost:3000/libros/${this.id}.jpg`;
+            if(this.libro.fecha_publicacion)
+                this.libro.fecha_publicacion = this.libro.fecha_publicacion.substr(0,10);            
+          }
+        });
+    },
+    listarEjemplares(){
+        fetch('http://localhost:3000/api/libro/ejemplares/'+this.id)
+            .then(resp=>resp.json())
+            .then(resp=>{
+                if(resp.success && resp.data!=null)
+                    this.ejemplares = resp.data;
+                    this.ejemplares.map(el=>{
+                        if(el.confirmado=='Y'){
+                            el.confirmado = 'SI';
+                        }else{
+                            el.confirmado = 'NO';
+                        }
+                    })
+            })
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

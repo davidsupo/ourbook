@@ -50,7 +50,7 @@
                                             <td>{{libro.precio}}</td>
                                             <td>{{libro.fecha_publicacion}}</td>
                                             <td>{{libro.ejemplares}}</td>
-                                            <td><router-link class="nav-link d-flex justify-content-center" to="/admin/editarlibro"><i class="fas fa-angle-double-right"></i></router-link></td>
+                                            <td><router-link class="nav-link d-flex justify-content-center" :to="{path:'/admin/editarlibro/'+libro.id_libro}"><i class="fas fa-angle-double-right"></i></router-link></td>
                                         </tr>
                                     </template>
                                    

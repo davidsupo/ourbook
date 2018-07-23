@@ -100,8 +100,9 @@ export const routes= [
         component: LibrosStock
       },
       {
-        path: 'editarlibro',
-        component: EditarLibro
+        path: 'editarlibro/:id',
+        component: EditarLibro,
+        props:true
       },  
       {
         path: 'registrarlibro',

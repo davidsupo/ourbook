@@ -17,19 +17,20 @@
             // Swiper
             .swiper-container
               .swiper-wrapper
-                .swiper-slide(v-for="libro in libros.libros")
-                  .row
-                    .col-sm-12
-                      .card.border-0
-                        .card-body.d-flex.flex-column
-                          .row
-                            .col-sm-12.col-md-4
-                              img.img-fluid(:src='libro.imagen', alt='Responsive image')
-                            .col-sm-12.col-md-8
-                              h3.color-secundario.negrita {{libro.titulo}} de {{libro.autor}}
-                              h4.color-secundario.delgado Por {{libro.autor}}
-                              router-link(:to="{path:'/libros/'+libro.id_libro}" tag="button").btn.btn-primary(type='button') Alquila este libro
-                              h5.text-justify.py-3.delgado Edición, prólogo y notas de {{libro.autor}}
+                template(v-if="libros")
+                  .swiper-slide(v-for="libro in libros.libros")
+                    .row
+                      .col-sm-12
+                        .card.border-0
+                          .card-body.d-flex.flex-column
+                            .row
+                              .col-sm-12.col-md-4
+                                img.img-fluid(:src='libro.imagen', alt='Responsive image')
+                              .col-sm-12.col-md-8
+                                h3.color-secundario.negrita {{libro.titulo}} de {{libro.autor}}
+                                h4.color-secundario.delgado Por {{libro.autor}}
+                                router-link(:to="{path:'/libros/'+libro.id_libro}" tag="button").btn.btn-primary(type='button') Alquila este libro
+                                h5.text-justify.py-3.delgado Edición, prólogo y notas de {{libro.autor}}
               // Add Pagination
               .swiper-pagination
               // Add Arrows
