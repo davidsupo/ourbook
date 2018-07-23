@@ -8,7 +8,7 @@
         .container.bg-oscuro
           .row.py-5
             .col-sm-12.col-md-3
-              img.img-fluid(src='https://goo.gl/cYvfw8', alt='Responsive image')
+              img.img-fluid(:src='libro.imagen', alt='Responsive image')
             .col-sm-12.col-md-9
               .row
                 .col-sm-12
@@ -66,7 +66,7 @@
                   .col-sm-12.col-md-3.my-2(v-for="libro in categoria.libros")
                     .card.border-0
                       router-link(:to="{path: '/libros/' + libro.id_libro}").card-body.d-flex.flex-column.p-0
-                        img.img-fluid.shadow.rounded(src='https://planetadelibrospe4.cdnstatics.com/usuaris/libros/fotos/274/tam_1/portada_poesia-completa_cesar-vallejo_201806061823.png', alt='Responsive image', style='width:100%')
+                        img.img-fluid.shadow.rounded(:src='libro.imagen', alt='Responsive image', style='width:100%')
     ParallaxCompartir
     Footer
   
@@ -105,6 +105,7 @@ export default {
         let textCategorias = '';
         this.categorias.map(cat=>{
           cat.libros.map(el=>{
+            el.imagen = `http://localhost:3000/libros/${el.id_libro}.jpg`;
             if(el.id_libro==this.id){
               this.libro=el;
               textCategorias += `${cat.categoria},`

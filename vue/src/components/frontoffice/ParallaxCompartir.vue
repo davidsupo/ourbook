@@ -7,13 +7,21 @@
               .justify-content-center
                 h1.col.text-white.negrita Tambien puedes poner a alquiler tus libros
                 h4.col.text-white.delgado Comparte y recibe ganancias.
-                a.btn.btn-success.ml-2.px-4(href='#') Comparte aquí
+                template(v-if="user")
+                  router-link.btn.btn-success.ml-2.px-4(to="/compartir") Comparte aquí
             .col-sm-4
 </template>
 
 <script>
 export default {
-
+  data(){
+    return{
+      user:null
+    }
+  },
+  mounted(){
+    this.user = localStorage.getItem('user-ourbook')? JSON.parse(localStorage.getItem('user-ourbook')) : null;
+  }
 }
 </script>
 

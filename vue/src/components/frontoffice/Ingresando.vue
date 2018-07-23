@@ -17,47 +17,19 @@
             // Swiper
             .swiper-container
               .swiper-wrapper
-                .swiper-slide
+                .swiper-slide(v-for="libro in libros.libros")
                   .row
                     .col-sm-12
                       .card.border-0
                         .card-body.d-flex.flex-column
                           .row
                             .col-sm-12.col-md-4
-                              img.img-fluid(src='https://planetadelibrospe4.cdnstatics.com/usuaris/libros/fotos/274/m_libros/poesia-completa_9786124379055_3d.png', alt='Responsive image')
+                              img.img-fluid(:src='libro.imagen', alt='Responsive image')
                             .col-sm-12.col-md-8
-                              h3.color-secundario.negrita Poesia completa de Cesar Vallejos
-                              h4.color-secundario.delgado Por Cesar Vallejos
-                              button.btn.btn-primary(type='button') Alquila este libro
-                              h5.text-justify.py-3.delgado Edición, prólogo y notas de Ricardo González Vigil
-                .swiper-slide
-                  .row
-                    .col-sm-12
-                      .card.border-0
-                        .card-body.d-flex.flex-column
-                          .row
-                            .col-sm-12.col-md-4
-                              img.img-fluid(src='https://planetadelibrospe5.cdnstatics.com/usuaris/libros/fotos/275/m_libros/la-chica-del-cumpleanos_9788490665206_3d.png', alt='Responsive image')
-                            .col-sm-12.col-md-8
-                              h3.color-secundario.negrita La chica del cumpleaños
-                              h4.color-secundario.delgado Por Haruki Murakami
-                              button.btn.btn-primary(type='button') Alquila este libro
-                              h5.text-justify.py-3.delgado
-                                | El misterio y lo cotidiano confluyen en un bellísimo relato del célebre escritor japonés Haruki Murakami.
-                .swiper-slide
-                  .row
-                    .col-sm-12
-                      .card.border-0
-                        .card-body.d-flex.flex-column
-                          .row
-                            .col-sm-12.col-md-4
-                              img.img-fluid(src='https://planetadelibrospe4.cdnstatics.com/usuaris/libros/fotos/274/m_libros/273988_diario-del-fin-del-mundo_9789584268716_3d.png', alt='Responsive image')
-                            .col-sm-12.col-md-8
-                              h3.color-secundario.negrita Diario del fin del mundo
-                              h4.color-secundario.delgado Por Mario Mendoza
-                              button.btn.btn-primary(type='button') Alquila este libro
-                              h5.text-justify.py-3.delgado
-                                | Una novela que pretende descifrar nuestra época y anticipar el temible tiempo que se nos avecina.
+                              h3.color-secundario.negrita {{libro.titulo}} de {{libro.autor}}
+                              h4.color-secundario.delgado Por {{libro.autor}}
+                              router-link(:to="{path:'/libros/'+libro.id_libro}" tag="button").btn.btn-primary(type='button') Alquila este libro
+                              h5.text-justify.py-3.delgado Edición, prólogo y notas de {{libro.autor}}
               // Add Pagination
               .swiper-pagination
               // Add Arrows
@@ -82,18 +54,31 @@ export default {
   components:{Header,Footer,SubHeader,ListadoCategorias,ParallaxPortada1,ParallaxCompartir},
   data(){
     return{
-      categorias:null
+      categorias:null,
+      libros:null
     }
   },
   mounted(){
     this.listarCategorias();
+    this.listarPopulares();
   },
   methods:{
     listarCategorias(){
       fetch('http://localhost:3000/api/categoria')
       .then(res=>res.json())
       .then(res=>this.categorias=res.data)
-    }
+    },
+     listarPopulares() {
+      fetch("http://localhost:3000/api/libros")
+        .then(res => res.json())
+        .then(res => {
+          this.libros = res.data[0];
+            this.libros.libros.map(lib=>{
+              lib.imagen = `http://localhost:3000/libros/${lib.id_libro}.jpg`
+            })
+
+        });
+    },
   }
 }
 </script>

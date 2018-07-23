@@ -17,7 +17,7 @@
                     .col-sm-12.col-md-3.my-2(v-for="libro in categoria.libros")
                       .card.border-0
                         router-link(:to="{path: '/libros/' + libro.id_libro}").card-body.d-flex.flex-column.p-0
-                          img.img-fluid.shadow.rounded(src='https://planetadelibrospe4.cdnstatics.com/usuaris/libros/fotos/274/tam_1/portada_poesia-completa_cesar-vallejo_201806061823.png', alt='Responsive image', style='width:100%')
+                          img.img-fluid.shadow.rounded(:src='libro.imagen', alt='Responsive image', style='width:100%')
             template(v-else)
               .row.introduccion.my-5
                 h3 NO HAY LIBROS EN ESTA CATEGORIA
@@ -54,6 +54,11 @@ export default {
       .then(res=>{
         if(res.success && res.data!=null){
           this.categoria = res.data[0];
+          
+            this.categoria.libros.map(lib=>{
+              lib.imagen = `http://localhost:3000/libros/${lib.id_libro}.jpg`
+            })
+        
         }
       });
     }

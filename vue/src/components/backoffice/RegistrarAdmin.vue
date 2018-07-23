@@ -14,62 +14,142 @@
                     <img src="img/usuario.png" class="img-fluid" alt="Responsive image">
                 </div>
                 <div class="col-sm-12 col-md-10">
-                    <form class="row">
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="ruc">Nombre</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="razon">Apellidos</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="direccion">Dirección</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="ciudad">Ciudad</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="persona">Celular</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="telefono">Teléfono</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="correo">Correo</label>
-                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="correo">Contraseña</label>
-                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-6 py-3">
-                            <label for="correo">Confirmar Contraseña</label>
-                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="">
-                        </div>
-                        <div class="col-sm-12 col-md-12 py-3">
-                            <button type="submit" class="btn btn-success">Registrar</button>
-                        </div>
-                    </form>
+                    <form @submit.prevent="Registrar()" class="row">
+        <div role="alert" v-if="alert" class="alert alert-danger col-sm-12 mt-3">{{message}}</div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label>Nombre</label>
+          <input v-model="nombres" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="razon">Apellidos</label>
+          <input v-model="apellidos" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="direccion">Dirección</label>
+          <input v-model="direccion" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="ciudad">Ciudad</label>
+          <input v-model="ciudad" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="persona">Celular</label>
+          <input v-model="celular" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="telefono">Teléfono</label>
+          <input v-model="telefono" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="correo">Correo</label>
+          <input id="correo" type="email" v-model="correo" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="correo">Contraseña</label>
+          <input id="correo" type="password" v-model="password" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-6 py-3">
+          <label for="correo">Confirmar Contraseña</label>
+          <input id="correo" type="password" v-model="cpassword" class="form-control"/>
+        </div>
+        <div class="col-sm-12 col-md-12 py-3 mb-5 pb-5">
+          <button type="submit" class="btn btn-success">REGISTRAR</button>
+        </div>
+      </form>
                 </div>
             </div>
-            <Footer></Footer>
+            <Footer class="mt-5"></Footer>
         </div>
     </div>
 </template>
 
 <script>
-import Footer from './Footer'
+import Footer from "./Footer";
 export default {
-  components:{Footer},
- 
-}
+  components: { Footer },
+  data() {
+    return {
+      alert: false,
+      message: "",
+      nombres: "",
+      apellidos: "",
+      direccion: "",
+      ciudad: "",
+      celular: "",
+      telefono: "",
+      correo: "",
+      password: "",
+      cpassword: ""
+    };
+  },
+  methods: {
+    Registrar() {
+      if (
+        this.nombres != "" &&
+        this.apellidos != "" &&
+        this.direccion != "" &&
+        this.ciudad != "" &&
+        this.celular != "" &&
+        this.correo != "" &&
+        this.password != "" &&
+        this.cpassword != "" &&
+        this.telefono != ""
+      ) {
+        if (this.password == this.cpassword) {
+          let data = {
+            nombres: this.nombres,
+            apellidos: this.apellidos,
+            direccion: this.direccion,
+            ciudad: this.ciudad,
+            celular: this.celular,
+            telefono: this.telefono,
+            correo: this.correo,
+            contraseña: this.password,
+            tipo: "A"
+          };
+          fetch("http://localhost:3000/api/usuario", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          })
+            .then(res => res.json())
+            .then(res => {
+              if (res.success) {
+                this.nombres = "";
+                this.apellidos = "";
+                this.direccion = "";
+                this.ciudad = "";
+                this.celular = "";
+                this.telefono = "";
+                this.correo = "";
+                this.password = "";
+                this.cpassword = "";
+              } else {
+                this.alert = true;
+                this.message = res.message;
+                setTimeout(() => {
+                  this.alert = false;
+                }, 1800);
+              }
+            });
+        } else {
+          this.alert = true;
+          this.message = "Las contraseñas no coinciden.";
+          setTimeout(() => {
+            this.alert = false;
+          }, 1800);
+        }
+      } else {
+        this.alert = true;
+        this.message = "No pueden haber datos vacíos.";
+        setTimeout(() => {
+          this.alert = false;
+        }, 1800);
+      }
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

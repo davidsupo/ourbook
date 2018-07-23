@@ -40,23 +40,16 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    
-                                    <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>San Francisco</td>
-                                    <td>66</td>
-                                    <td>2009/01/12</td>
-                                    <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>Edinburgh</td>
-                                    <td>22</td>
-                                    <td>2012/03/29</td>
-                                    <td>$433,060</td>
-                                    </tr>
+                                    <template v-for="usuario in usuarios">
+                                        <tr :key="usuario.nombres">
+                                            <td>{{usuario.nombres}}</td>
+                                            <td>{{usuario.apellidos}}</td>
+                                            <td>{{usuario.direccion}}</td>
+                                            <td>{{usuario.celular}}</td>
+                                            <td>{{usuario.alquileres}} Libro(s)</td>
+                                            <td>{{usuario.compartidos}} Libro(s)</td>
+                                        </tr>
+                                    </template>
                                     
                                 </tbody>
                                 </table>
@@ -75,7 +68,21 @@
 import Footer from './Footer'
 export default {
   components:{Footer},
- 
+    data(){
+        return{
+            usuarios:null,
+        }
+    },
+    mounted(){
+        this.listarUsuarios();
+    },
+    methods:{
+        listarUsuarios(){
+            fetch('http://localhost:3000/api/usuarios')
+            .then(res=>res.json())
+            .then(res=>this.usuarios=res.data);
+        }
+    }
 }
 </script>
 
